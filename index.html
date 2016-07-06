@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <!-- Jasmine References -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+
+    <!-- Angular and Angular Mock references -->
+    <script type="text/javascript" src="https://code.angularjs.org/1.4.0-rc.2/angular.min.js"></script>
+    <script type="text/javascript" src="https://code.angularjs.org/1.4.0-rc.2/angular-mocks.js"></script>
+</head>
+
+<body></body>
+<script type="text/javascript">
+    angular.module('calculatorApp', []).controller('CalculatorController', function CalculatorController() {
+        var vm = this;
+
+        vm.sum = function() {
+            vm.z = vm.x + vm.y;
+        };
+    });
+
+    /* Test Code */
+    describe('calculator', function() {
+        // use the ngMock functionality to register an instance of the calculator app
+        beforeEach(angular.mock.module('calculatorApp'));
+        var $controller;
+
+        // once the calculatorApp module has been initialised, we can call the inject function, so that we can resolve a reference of the #controller service;
+        beforeEach(angular.mock.inject(function(_$controller_) {
+            $controller = _$controller_;
+        }));
+        // after the step above, thea pp is loaded
+
+
+        describe('sum', function() {
+            it('4 + 6 should equal 10', function() {
+                //          var $scope = {};
+                var controller = $controller('CalculatorController');
+                // use this functionto get an instance of our CalculatorController
+                controller.x = 4;
+                controller.y = 6;
+                controller.sum();
+                expect(controller.z).toBe(10);
+            });
+        });
+    });
+</script>
+
+</html>
